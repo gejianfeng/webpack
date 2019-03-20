@@ -2,6 +2,7 @@ const path = require("path")
 const uglify = require("uglifyjs-webpack-plugin")
 const htmlPlugin = require("html-webpack-plugin")
 const extractTextPlugin = require("extract-text-webpack-plugin")
+const cleanWebpackPlugin = require("clean-webpack-plugin")
 
 module.exports = {
     mode: "development",
@@ -36,6 +37,10 @@ module.exports = {
         ]
     },
     plugins: [
+        new cleanWebpackPlugin({
+            verbose: true,
+            dry: false
+        }),
         new uglify(),
         new htmlPlugin ({
             minify: {
