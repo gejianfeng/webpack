@@ -1,0 +1,10 @@
+body {
+    background-color: pink;
+    color: olivedrab;
+}
+
+.img {
+    background-image: url("../images/img.png");
+    width: 540px;
+    height: 258px;
+}
