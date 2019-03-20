@@ -1,6 +1,7 @@
 const path = require("path")
 const uglify = require("uglifyjs-webpack-plugin")
 const htmlPlugin = require("html-webpack-plugin")
+const extractTextPlugin = require("extract-text-webpack-plugin")
 
 module.exports = {
     mode: "development",
@@ -16,10 +17,10 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/,
-                use: [
-                    { loader: "style-loader" },
-                    { loader: "css-loader" }
-                ]
+                use: extractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader"
+                })
             },
             {
                 test: /\.(png|jpg|gif|jpeg)/,
@@ -42,7 +43,8 @@ module.exports = {
             },
             hash: true,
             template: "./src/index.html"
-        })
+        }),
+        new extractTextPlugin("css/index.css")
     ],
     devServer: {
         contentBase: path.resolve(__dirname, "../dist"),
