@@ -1,8 +1,11 @@
 const path = require("path")
+const glob = require("glob")
+
 const uglify = require("uglifyjs-webpack-plugin")
 const htmlPlugin = require("html-webpack-plugin")
 const extractTextPlugin = require("extract-text-webpack-plugin")
 const cleanWebpackPlugin = require("clean-webpack-plugin")
+const PurifyCSSPlugin = require("purifycss-webpack")
 
 module.exports = {
     mode: "development",
@@ -59,7 +62,10 @@ module.exports = {
             hash: true,
             template: "./src/index.html"
         }),
-        new extractTextPlugin("css/index.css")
+        new extractTextPlugin("css/index.css"),
+        new PurifyCSSPlugin({
+            paths: glob.sync(path.resolve(__dirname, '../src/*.html'))
+        })
     ],
     devServer: {
         contentBase: path.resolve(__dirname, "../dist"),
