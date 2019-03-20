@@ -24,6 +24,16 @@ module.exports = {
                 })
             },
             {
+                test: /\.less$/,
+                use: extractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: [
+                        { loader: "css-loader" },
+                        { loader: "less-loader" }
+                    ]
+                })
+            },
+            {
                 test: /\.(png|jpg|gif|jpeg)/,
                 use: [
                     {
